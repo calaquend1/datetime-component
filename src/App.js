@@ -1,26 +1,45 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Datetime from './datetime.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  state = {
+    date : ''
+  }
+
+  componentDidMount(){
+    this.setState({
+      date : new Date
+    })
+  }
+
+  constructor(props){
+    super(props);
+    this.changeDate = this.changeDate.bind(this)
+  }
+  
+  changeDate(event,field){
+		this.setState(old=>({
+			it:{
+				...old.it,
+				[field]:event.value || this.state.example
+			}
+		}))
+	}
+
+
+  render(){
+    return (
+      <div className="App">
+        <header className="App-header">
+          <p>
+            
+          </p>
+          <Datetime value={this.state.example || ''} name={'example'} style={{width:'95%'}}
+          onChange={(e)=>this.changeDate(e,'example')}/>
+        </header>
+      </div>
+    )
+  }
 }
-
-export default App;
